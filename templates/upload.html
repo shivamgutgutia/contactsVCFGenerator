@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>File Upload</title>
+    <style>
+
+        #UploadMessage{
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #upload{
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #loadingMessage {
+            padding-top: 10px;
+            display: none;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function validateFile() {
+            const fileInput = document.querySelector('input[type="file"]');
+            const fileName = fileInput.value;
+            const fileExtension = fileName.split('.').pop().toLowerCase();
+            if (fileExtension !== 'csv') {
+                alert('Please select a valid CSV file.');
+                return false; // Prevent the form from submitting
+            }
+            document.getElementById("loadingMessage").style.display = "block"
+            return true; // Allow the form to submit
+        }
+    </script>
+</head>
+
+<body>
+    <h1 id="UploadMessage">Upload a CSV File</h1>
+    <form id="upload" action="/upload" method="post" enctype="multipart/form-data" onsubmit="return validateFile()">
+        <input type="file" name="file">
+        <input type="submit" value="Upload File">
+    </form>
+    <div id="loadingMessage" style="display: none;">
+        Uploading and processing the file...
+    </div>
+</body>
+
+</html>
